@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import StarField from "./StarField";
-import { asset } from "@/lib/basePath";
+import BadgeViewer from "./BadgeViewer";
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -13,9 +12,8 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const badgeScale = useTransform(scrollYProgress, [0, 1], [1, 1.35]);
-  const badgeRotate = useTransform(scrollYProgress, [0, 1], [0, 6]);
-  const badgeY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const badgeScale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
+  const badgeY = useTransform(scrollYProgress, [0, 1], [0, -30]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
@@ -25,46 +23,38 @@ export default function Hero() {
       className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black"
     >
       <div className="grid-overlay absolute inset-0 opacity-40" />
-      <StarField density={160} />
+      <StarField density={160} shootingStars />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black" />
 
       <motion.div
         style={{ opacity: contentOpacity }}
-        className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-24 text-center"
+        className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-20 text-center"
       >
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mono mb-8 flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 text-[11px] tracking-widest text-white/50"
+          className="mono mb-6 flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 text-[11px] tracking-widest text-white/50"
         >
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
           bi0s HARDWARE
         </motion.div>
 
         <motion.div
-          style={{ scale: badgeScale, rotate: badgeRotate, y: badgeY }}
+          style={{ scale: badgeScale, y: badgeY }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
-          className="relative mb-10 h-[260px] w-[200px] sm:h-[340px] sm:w-[260px]"
         >
-          <div className="absolute inset-0 -z-10 rounded-full bg-accent/20 blur-[80px]" />
-          <Image
-            src={asset("/images/badge-front.jpeg")}
-            alt="Vanguard hardware security badge"
-            fill
-            priority
-            sizes="260px"
-            className="object-contain drop-shadow-[0_0_60px_rgba(255,107,0,0.15)]"
-          />
+          <BadgeViewer size={420} className="sm:hidden" />
+          <BadgeViewer size={480} className="hidden sm:flex" />
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-5xl font-semibold tracking-tight text-white sm:text-7xl"
+          className="mt-4 text-5xl font-semibold tracking-tight text-white sm:text-7xl"
         >
           Vanguard
         </motion.h1>
@@ -95,34 +85,16 @@ export default function Hero() {
           className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
           <a
-            href="https://github.com/bi0sHardware/Vanguard-Portable-Hardware-Security-Laboratory/tree/main/firmware"
-            target="_blank"
-            rel="noreferrer"
-            className="mono rounded-sm bg-accent px-6 py-3 text-xs tracking-wider text-black transition-transform hover:scale-[1.03]"
-          >
-            GET FIRMWARE
-          </a>
-          <a
-            href="https://github.com/bi0sHardware/Vanguard-Portable-Hardware-Security-Laboratory/wiki"
-            target="_blank"
-            rel="noreferrer"
-            className="mono rounded-sm border border-white/20 px-6 py-3 text-xs tracking-wider text-white transition-colors hover:border-technical hover:text-technical"
-          >
-            DOCUMENTATION
-          </a>
-          <a
-            href="https://github.com/bi0sHardware/Vanguard-Portable-Hardware-Security-Laboratory"
-            target="_blank"
-            rel="noreferrer"
-            className="mono rounded-sm border border-white/20 px-6 py-3 text-xs tracking-wider text-white transition-colors hover:border-white/40"
-          >
-            GITHUB
-          </a>
-          <a
             href="#get-vanguard"
-            className="mono rounded-sm border border-white/20 px-6 py-3 text-xs tracking-wider text-white transition-colors hover:border-white/40"
+            className="mono rounded-sm bg-accent px-7 py-3.5 text-xs tracking-wider text-black transition-transform hover:scale-[1.03]"
           >
-            REQUEST BADGE
+            GET A BADGE
+          </a>
+          <a
+            href="#hardware"
+            className="mono rounded-sm border border-white/20 px-7 py-3.5 text-xs tracking-wider text-white transition-colors hover:border-technical hover:text-technical"
+          >
+            EXPLORE THE PLATFORM
           </a>
         </motion.div>
       </motion.div>

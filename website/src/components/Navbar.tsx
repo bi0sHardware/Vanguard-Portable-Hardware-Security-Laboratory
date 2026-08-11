@@ -8,6 +8,7 @@ const links = [
   { label: "Documentation", href: "https://github.com/bi0sHardware/Vanguard-Portable-Hardware-Security-Laboratory/tree/main/docs" },
   { label: "Firmware", href: "https://github.com/bi0sHardware/Vanguard-Portable-Hardware-Security-Laboratory/tree/main/firmware" },
   { label: "GitHub", href: "https://github.com/bi0sHardware/Vanguard-Portable-Hardware-Security-Laboratory" },
+  { label: "bi0s Hardware", href: "https://www.bi0shardware.in/" },
 ];
 
 export default function Navbar() {
@@ -57,7 +58,7 @@ export default function Navbar() {
           href="#get-vanguard"
           className="mono rounded-sm border border-accent px-4 py-2 text-xs tracking-wider text-accent transition-colors hover:bg-accent hover:text-black"
         >
-          REQUEST BADGE
+          GET A BADGE
         </a>
       </nav>
     </header>

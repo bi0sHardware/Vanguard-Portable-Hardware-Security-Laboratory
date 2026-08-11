@@ -5,11 +5,8 @@ import StarField from "./StarField";
 
 export default function FinalCTA() {
   return (
-    <section
-      id="get-vanguard"
-      className="relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden border-t border-border py-24 text-center"
-    >
-      <StarField density={80} />
+    <section className="relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden border-t border-border py-24 text-center">
+      <StarField density={80} shootingStars />
       <div className="grid-overlay absolute inset-0 opacity-20" />
 
       <motion.div
@@ -50,12 +47,10 @@ export default function FinalCTA() {
             DOCUMENTATION
           </a>
           <a
-            href="https://github.com/bi0sHardware"
-            target="_blank"
-            rel="noreferrer"
+            href="#get-vanguard"
             className="mono rounded-sm border border-white/20 px-6 py-3 text-xs tracking-wider text-white transition-colors hover:border-white/40"
           >
-            REQUEST BADGE
+            GET A BADGE
           </a>
         </div>
       </motion.div>

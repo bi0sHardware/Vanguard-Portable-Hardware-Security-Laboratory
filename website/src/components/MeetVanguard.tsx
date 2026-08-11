@@ -3,6 +3,16 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { asset } from "@/lib/basePath";
+import {
+  ChipIcon,
+  RadioIcon,
+  BluetoothIcon,
+  DisplayIcon,
+  AudioIcon,
+  LedIcon,
+  StorageIcon,
+  BatteryIcon,
+} from "./icons";
 
 type Callout = {
   label: string;
@@ -11,19 +21,19 @@ type Callout = {
 };
 
 const frontCallouts: Callout[] = [
-  { label: "LoRa Antenna", x: "50%", y: "12%" },
-  { label: "TFT Display", x: "50%", y: "56%" },
-  { label: "Joystick Input", x: "16%", y: "68%" },
-  { label: "LED Zones", x: "84%", y: "56%" },
-  { label: "Button Cluster", x: "86%", y: "68%" },
+  { label: "LoRa Antenna", x: "50%", y: "4%" },
+  { label: "TFT Display", x: "53%", y: "58%" },
+  { label: "Joystick Input", x: "17%", y: "77%" },
+  { label: "LED Zones", x: "65%", y: "77%" },
+  { label: "Button Cluster", x: "92%", y: "73%" },
 ];
 
 const backCallouts: Callout[] = [
-  { label: "LoRa Radio Module", x: "50%", y: "24%" },
-  { label: "ESP32-S3-WROOM-1", x: "72%", y: "60%" },
-  { label: "Li-ion Cell", x: "48%", y: "56%" },
-  { label: "RST / BOOT", x: "72%", y: "70%" },
-  { label: "USB-C", x: "48%", y: "88%" },
+  { label: "LoRa Radio Module", x: "52%", y: "26%" },
+  { label: "ESP32-S3-WROOM-1", x: "75%", y: "62%" },
+  { label: "Li-ion Cell", x: "50%", y: "58%" },
+  { label: "RST / BOOT", x: "74%", y: "76%" },
+  { label: "USB-C", x: "52%", y: "92%" },
 ];
 
 function CalloutImage({
@@ -36,8 +46,8 @@ function CalloutImage({
   callouts: Callout[];
 }) {
   return (
-    <div className="relative mx-auto aspect-[9/16] w-full max-w-[280px]">
-      <Image src={src} alt={alt} fill sizes="280px" className="object-contain" />
+    <div className="relative mx-auto aspect-[4/5] w-full max-w-[420px]">
+      <Image src={src} alt={alt} fill sizes="420px" className="object-contain" />
       {callouts.map((c) => (
         <motion.div
           key={c.label}
@@ -59,7 +69,14 @@ function CalloutImage({
 }
 
 const specs = [
-  "ESP32-S3", "LoRa", "BLE", "TFT Display", "Audio", "Addressable LEDs", "NVS Storage", "Battery Powered",
+  { label: "ESP32-S3", Icon: ChipIcon },
+  { label: "LoRa", Icon: RadioIcon },
+  { label: "BLE", Icon: BluetoothIcon },
+  { label: "TFT Display", Icon: DisplayIcon },
+  { label: "Audio", Icon: AudioIcon },
+  { label: "Addressable LEDs", Icon: LedIcon },
+  { label: "NVS Storage", Icon: StorageIcon },
+  { label: "Battery Powered", Icon: BatteryIcon },
 ];
 
 export default function MeetVanguard() {
@@ -89,7 +106,7 @@ export default function MeetVanguard() {
         <div className="mt-16 grid grid-cols-1 gap-16 sm:grid-cols-2">
           <div>
             <CalloutImage
-              src={asset("/images/badge-front.jpeg")}
+              src={asset("/images/badge-front-cutout.webp")}
               alt="Vanguard badge, front"
               callouts={frontCallouts}
             />
@@ -99,7 +116,7 @@ export default function MeetVanguard() {
           </div>
           <div>
             <CalloutImage
-              src={asset("/images/badge-back.jpeg")}
+              src={asset("/images/badge-back-cutout.webp")}
               alt="Vanguard badge, back"
               callouts={backCallouts}
             />
@@ -116,12 +133,13 @@ export default function MeetVanguard() {
           transition={{ duration: 0.6 }}
           className="mx-auto mt-20 flex max-w-4xl flex-wrap justify-center gap-3"
         >
-          {specs.map((spec) => (
+          {specs.map(({ label, Icon }) => (
             <span
-              key={spec}
-              className="mono rounded-full border border-white/10 px-4 py-2 text-xs tracking-wide text-white/70"
+              key={label}
+              className="mono flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-xs tracking-wide text-white/70 transition-colors hover:border-accent/40 hover:text-white"
             >
-              {spec}
+              <Icon className="text-accent" />
+              {label}
             </span>
           ))}
         </motion.div>

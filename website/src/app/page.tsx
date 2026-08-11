@@ -1,6 +1,9 @@
 import Navbar from "@/components/Navbar";
+import { asset } from "@/lib/basePath";
 import Hero from "@/components/Hero";
+import StatsBand from "@/components/StatsBand";
 import MeetVanguard from "@/components/MeetVanguard";
+import Specifications from "@/components/Specifications";
 import PlatformIdentity from "@/components/PlatformIdentity";
 import ScreenSection from "@/components/ScreenSection";
 import WirelessComm from "@/components/WirelessComm";
@@ -14,9 +17,9 @@ import LearnByBuilding from "@/components/LearnByBuilding";
 import OpenFirmware from "@/components/OpenFirmware";
 import ArchitectureSection from "@/components/ArchitectureSection";
 import Roadmap from "@/components/Roadmap";
+import GetVanguard from "@/components/GetVanguard";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
-import { asset } from "@/lib/basePath";
 
 export default function Home() {
   return (
@@ -24,7 +27,9 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <StatsBand />
         <MeetVanguard />
+        <Specifications />
         <PlatformIdentity />
         <ScreenSection
           id="challenges"
@@ -51,6 +56,7 @@ export default function Home() {
         <OpenFirmware />
         <ArchitectureSection />
         <Roadmap />
+        <GetVanguard />
         <FinalCTA />
       </main>
       <Footer />
