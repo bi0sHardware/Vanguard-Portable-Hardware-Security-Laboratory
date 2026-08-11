@@ -21,19 +21,19 @@ type Callout = {
 };
 
 const frontCallouts: Callout[] = [
-  { label: "LoRa Antenna", x: "50%", y: "4%" },
-  { label: "TFT Display", x: "53%", y: "58%" },
-  { label: "Joystick Input", x: "17%", y: "77%" },
-  { label: "LED Zones", x: "65%", y: "77%" },
-  { label: "Button Cluster", x: "92%", y: "73%" },
+  { label: "LoRa Antenna", x: "45%", y: "3%" },
+  { label: "TFT Display", x: "50%", y: "59%" },
+  { label: "Joystick Input", x: "16%", y: "73%" },
+  { label: "LED Zones", x: "71%", y: "75%" },
+  { label: "Button Cluster", x: "87%", y: "70%" },
 ];
 
 const backCallouts: Callout[] = [
-  { label: "LoRa Radio Module", x: "52%", y: "26%" },
-  { label: "ESP32-S3-WROOM-1", x: "75%", y: "62%" },
+  { label: "LoRa Radio Module", x: "51%", y: "29%" },
+  { label: "ESP32-S3-WROOM-1", x: "76%", y: "62%" },
   { label: "Li-ion Cell", x: "50%", y: "58%" },
-  { label: "RST / BOOT", x: "74%", y: "76%" },
-  { label: "USB-C", x: "52%", y: "92%" },
+  { label: "RST / BOOT", x: "76%", y: "75%" },
+  { label: "USB-C", x: "50%", y: "90%" },
 ];
 
 function CalloutImage({
@@ -46,7 +46,7 @@ function CalloutImage({
   callouts: Callout[];
 }) {
   return (
-    <div className="relative mx-auto aspect-[4/5] w-full max-w-[420px]">
+    <div className="relative mx-auto aspect-[916/1045] w-full max-w-[440px]">
       <Image src={src} alt={alt} fill sizes="420px" className="object-contain" />
       {callouts.map((c) => (
         <motion.div

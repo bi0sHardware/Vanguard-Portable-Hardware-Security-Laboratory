@@ -42,18 +42,13 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-5">
           <div>
-            <div className="flex items-center gap-3">
-              <Image
-                src={asset("/images/bi0s-hardware-logo.webp")}
-                alt="bi0s Hardware"
-                width={32}
-                height={32}
-                className="invert"
-              />
-              <span className="mono text-sm tracking-widest text-white/80">
-                bi0s HARDWARE
-              </span>
-            </div>
+            <Image
+              src={asset("/images/bi0s-hardware-logo.webp")}
+              alt="bi0s Hardware"
+              width={125}
+              height={60}
+              className="h-11 w-auto invert"
+            />
             <p className="mt-4 max-w-xs text-xs leading-relaxed text-white/40">
               Vanguard — Portable Hardware Security Laboratory. Built on the
               ESP32-S3.
@@ -87,7 +82,7 @@ export default function Footer() {
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
           <p className="mono text-xs text-white/30">
-            Vanguard — Portable Hardware Security Laboratory
+            Designed and developed by bi0s Hardware
           </p>
           <p className="mono text-xs text-white/30">MIT Licensed</p>
         </div>

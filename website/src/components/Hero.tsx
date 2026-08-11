@@ -34,10 +34,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mono mb-6 flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 text-[11px] tracking-widest text-white/50"
+          className="mono mb-6 flex max-w-[92vw] items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-center text-[9px] tracking-widest text-white/50 sm:max-w-none sm:px-4 sm:text-[11px]"
         >
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-          bi0s HARDWARE
+          <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-accent" />
+          <span className="whitespace-normal sm:whitespace-nowrap">
+            DESIGNED &amp; DEVELOPED BY bi0s HARDWARE
+          </span>
         </motion.div>
 
         <motion.div
@@ -46,8 +48,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <BadgeViewer size={420} className="sm:hidden" />
-          <BadgeViewer size={480} className="hidden sm:flex" />
+          <BadgeViewer widthClassName="w-[62vw] max-w-[260px] sm:max-w-[360px] lg:max-w-[480px]" />
         </motion.div>
 
         <motion.h1
