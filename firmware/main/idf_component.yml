@@ -1,0 +1,26 @@
+dependencies:
+  espressif/arduino-esp32:
+    version: "^3.0.0"
+  jgromes/radiolib:
+    version: "6.6.0"
+  h2zero/esp-nimble-cpp:
+    version: "^2.0.0"
+  # Used directly by settings.cpp for the WiFi Identity Setup QR code
+  # (<qrcode.h>, esp_qrcode_generate()/get_module()). Found during V&V
+  # Phase 5 to be resolving only as an undeclared transitive dependency of
+  # espressif/arduino-esp32 -- that transitive pull is gated by target/IDF-
+  # version rules (excluded on esp32c2/esp32p4 and on IDF >=6.0), so it
+  # could silently stop resolving on a future IDF bump with an error that
+  # looks unrelated to settings.cpp. Declared explicitly so the actual
+  # dependency is visible and doesn't depend on arduino-esp32's own
+  # private dependency list staying the same shape.
+  espressif/qrcode:
+    version: "^0.1.0"
+  # Software JPEG decode for the boot animation flipbook (boot.cpp,
+  # tools/gen_boot_anim.py) -- ESP32-S3 has TJpgDec in ROM, which this
+  # component uses, so decode is cheap. Direct RGB565 output support means
+  # no manual color-format conversion before blitting to the ST7789.
+  espressif/esp_jpeg:
+    version: "^1.0.0"
+  idf:
+    version: ">=5.1"

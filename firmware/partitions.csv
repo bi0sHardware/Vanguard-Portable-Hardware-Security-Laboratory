@@ -1,0 +1,12 @@
+# Matches Vanguard_firmware's (PlatformIO) app3M_fat9M_16MB.csv exactly --
+# same physical board, same 16MB flash, same layout. OTA-style dual app
+# slots (app0/app1) even though this firmware doesn't currently use OTA,
+# to keep the flash layout identical to the original for direct
+# comparability and in case OTA is added later.
+# Name,   Type, SubType, Offset,  Size, Flags
+nvs,      data, nvs,     0x9000,  0x5000,
+otadata,  data, ota,     0xe000,  0x2000,
+app0,     app,  ota_0,   0x10000, 0x300000,
+app1,     app,  ota_1,   0x310000,0x300000,
+ffat,     data, fat,     0x610000,0x9E0000,
+coredump, data, coredump,0xFF0000,0x10000,

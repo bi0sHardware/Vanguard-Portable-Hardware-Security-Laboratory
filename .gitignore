@@ -1,0 +1,13 @@
+# Build output
+firmware/build/
+firmware/build_sat/
+firmware/managed_components/
+firmware/sdkconfig
+
+# Generated intermediates from asset tooling
+firmware/tools/image.raw
+firmware/tools/payload_preview.png
+
+# OS/editor cruft
+.DS_Store
+*.swp

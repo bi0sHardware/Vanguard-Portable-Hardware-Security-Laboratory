@@ -1,0 +1,72 @@
+# ESP32-S3-WROOM-1, matching the original PlatformIO project's board config
+# (Vanguard_firmware/platformio.ini: board_build.flash_size=16MB, flash_mode=dio)
+CONFIG_IDF_TARGET="esp32s3"
+
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_ESPTOOLPY_FLASHMODE_DIO=y
+
+# Custom partition table matching Vanguard_firmware's (PlatformIO)
+# app3M_fat9M_16MB.csv exactly -- see partitions.csv. The default single
+# 1MB "factory" partition ESP-IDF uses otherwise is too small (this
+# firmware's binary is ~1.7MB with LoRa+display+BLE+games+challenges all
+# linked in).
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# Native USB Serial/JTAG console -- the IDF-native equivalent of PlatformIO's
+# ARDUINO_USB_MODE=1 ("Hardware CDC and JTAG"). This is what makes the badge
+# enumerate as /dev/ttyACMx, matching the original project's behavior.
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+
+# arduino-esp32-as-a-component requires this (build fails otherwise: see
+# managed_components/espressif__arduino-esp32/CMakeLists.txt's check).
+CONFIG_FREERTOS_HZ=1000
+
+# Auto-generates app_main() and runs Arduino's setup()/loop() -- lets every
+# main.cpp in this project stay in the familiar Arduino shape without a
+# manual initArduino()/setup()/loop() wrapper.
+CONFIG_AUTOSTART_ARDUINO=y
+
+# C++ exceptions are required by several Arduino libraries used here
+# (RadioLib, Adafruit_GFX, NimBLE-Arduino).
+CONFIG_COMPILER_CXX_EXCEPTIONS=y
+
+# BLE (PeerDrop), NimBLE host -- required by h2zero/esp-nimble-cpp, the
+# ESP-IDF-native port used here (see docs/architecture/ble-subsystem.md).
+# Without CONFIG_BT_ENABLED + CONFIG_BT_NIMBLE_ENABLED, esp-nimble-cpp's
+# sources fail to compile (missing generated syscfg/syscfg.h, which only
+# gets generated when the NimBLE host is actually enabled).
+CONFIG_BT_ENABLED=y
+CONFIG_BT_NIMBLE_ENABLED=y
+
+# NimBLE controller init is stack-hungry; 16384 gives BLE + display + LoRa
+# concurrently active a reasonable amount of headroom.
+CONFIG_ARDUINO_LOOP_STACK_SIZE=16384
+
+# Found during the production resource review: this project had never
+# explicitly set a compiler optimization level, so it silently built on
+# ESP-IDF's own out-of-the-box default the whole time --
+# CONFIG_COMPILER_OPTIMIZATION_DEBUG (-Og), meant for the development
+# inner loop, not for ~90-100 competition badges. `idf.py size` showed
+# IRAM at 16383/16384 bytes used (99.99%, 1 byte free) under that profile
+# -- any future change touching an ISR or IRAM_ATTR'd function would be
+# one link away from an out-of-IRAM build failure. -Os (size) is the
+# right target for a flash/IRAM-constrained embedded device like this one
+# regardless of the IRAM number specifically; pure compiler-flag change,
+# same source, same behavior.
+CONFIG_COMPILER_OPTIMIZATION_SIZE=y
+
+# Found investigating a real report: the badge would occasionally come up
+# stuck on the boot logo (frozen, never advancing to the main menu) right
+# after flashing, requiring a manual physical reset to recover. Root cause
+# of the underlying stall wasn't pinned down (see main.cpp's boot-progress
+# trace prints, added alongside this, for next time it happens) -- but
+# CONFIG_ESP_TASK_WDT_PANIC was NOT set, meaning the task watchdog
+# (CONFIG_ESP_TASK_WDT_EN, already on) only ever logged an error when a
+# task stopped feeding it and then left the system sitting exactly as
+# stuck as before, forever. That's a real gap for ~90-100 unattended
+# competition badges regardless of what specifically trips it: a badge
+# that hangs should self-recover, not need someone to notice and manually
+# reset it. Now panics (and reboots, per CONFIG_ESP_SYSTEM_PANIC_PRINT_REBOOT
+# below, already the default) instead of hanging silently.
+CONFIG_ESP_TASK_WDT_PANIC=y
