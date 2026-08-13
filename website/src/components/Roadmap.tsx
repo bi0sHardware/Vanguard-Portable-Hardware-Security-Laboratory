@@ -20,29 +20,26 @@ export default function Roadmap() {
             Beyond Vanguard
           </h2>
           <p className="mt-5 text-base leading-relaxed text-white/60">
-            Vanguard is a hardware platform, not a single firmware image.
-            Multiple firmware experiences can run on the same badge.
+            One hardware platform. Multiple firmware experiences.
           </p>
         </motion.div>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-3">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6 }}
-            className="glow-accent rounded-lg border border-accent/40 bg-accent/[0.04] p-8"
+            className="rounded-lg border border-border p-8"
           >
-            <span className="mono rounded-full border border-accent/50 px-3 py-1 text-[10px] tracking-widest text-accent">
-              COMING SOON
+            <span className="mono rounded-full border border-white/20 px-3 py-1 text-[10px] tracking-widest text-white/50">
+              CURRENT
             </span>
-            <h3 className="mt-5 text-xl font-semibold text-white">
-              Portable Cyber Lab Firmware
+            <h3 className="mt-5 text-lg font-semibold text-white/90">
+              Security Challenge Firmware
             </h3>
-            <p className="mt-4 text-sm leading-relaxed text-white/60">
-              Advanced hardware security, RF experimentation, protocol
-              analysis, wireless tooling, and embedded exploration built as
-              a dedicated firmware experience for the same hardware.
+            <p className="mt-4 text-sm leading-relaxed text-white/50">
+              What ships on the badge today.
             </p>
           </motion.div>
 
@@ -50,7 +47,27 @@ export default function Roadmap() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.08 }}
+            className="glow-accent rounded-lg border border-accent/40 bg-accent/[0.04] p-8"
+          >
+            <span className="mono rounded-full border border-accent/50 px-3 py-1 text-[10px] tracking-widest text-accent">
+              COMING SOON
+            </span>
+            <h3 className="mt-5 text-xl font-semibold text-white">
+              Cyber Lab Firmware
+            </h3>
+            <p className="mt-4 text-sm leading-relaxed text-white/60">
+              A dedicated hardware security and wireless experimentation
+              environment. Protocol analysis. Wireless tooling. Hardware
+              exploration.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.16 }}
             className="rounded-lg border border-border p-8"
           >
             <span className="mono rounded-full border border-white/20 px-3 py-1 text-[10px] tracking-widest text-white/50">
@@ -60,8 +77,7 @@ export default function Roadmap() {
               Gaming Firmware
             </h3>
             <p className="mt-4 text-sm leading-relaxed text-white/50">
-              Dedicated multiplayer experiences, wireless gaming, and
-              community activities.
+              Multiplayer experiences and community activities.
             </p>
           </motion.div>
         </div>

@@ -24,12 +24,11 @@ export default function OpenFirmware() {
             OPEN FIRMWARE
           </span>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-            Complete source code available.
+            Open Firmware
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
-            Firmware source, documentation, build instructions, development
-            guides, and architecture references — all in the same
-            repository the shipped firmware is built from.
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
+            The complete firmware source is available. Explore it. Learn
+            from it. Modify it. Build something new.
           </p>
         </motion.div>
 

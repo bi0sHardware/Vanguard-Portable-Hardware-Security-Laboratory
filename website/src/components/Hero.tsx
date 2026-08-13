@@ -72,11 +72,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-white/60 sm:text-lg"
+          className="mt-8 max-w-xl text-balance text-base leading-relaxed text-white/60 sm:text-lg"
         >
-          Explore hardware security, embedded systems, wireless
-          communication, RF experimentation, and cybersecurity challenges
-          from a single platform.
+          Real hardware. Real firmware. ESP32-S3, LoRa, and BLE, built for
+          hardware security.
         </motion.p>
 
         <motion.div
@@ -98,18 +97,6 @@ export default function Hero() {
             EXPLORE THE PLATFORM
           </a>
         </motion.div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
-      >
-        <div className="mono flex flex-col items-center gap-2 text-[10px] tracking-widest text-white/30">
-          SCROLL
-          <span className="h-8 w-px animate-pulse bg-white/20" />
-        </div>
       </motion.div>
     </section>
   );
