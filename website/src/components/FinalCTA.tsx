@@ -24,9 +24,7 @@ export default function FinalCTA() {
           Explore.
         </h2>
         <p className="mx-auto mt-8 max-w-xl text-balance text-base leading-relaxed text-white/60 sm:text-lg">
-          A portable platform for learning and exploring hardware security,
-          embedded systems, wireless communication, cybersecurity concepts,
-          and embedded development.
+          Ships as a badge. Stays as a platform.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

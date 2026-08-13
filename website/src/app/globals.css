@@ -21,7 +21,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Deliberately no scroll-behavior: smooth — it fights GSAP
+     ScrollTrigger's own scroll-position tracking on the pinned Device
+     Journey section, producing visible stutter. */
   background: var(--background);
 }
 

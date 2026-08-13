@@ -42,6 +42,7 @@ export default function Navbar() {
             alt="bi0s Hardware"
             width={104}
             height={50}
+            priority
             className="h-7 w-auto invert sm:h-9"
           />
         </a>

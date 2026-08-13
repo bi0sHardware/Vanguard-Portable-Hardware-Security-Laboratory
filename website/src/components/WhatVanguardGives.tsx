@@ -6,7 +6,7 @@ const capabilities = [
   {
     title: "Hardware Security Lab",
     lines: [
-      "Study real hardware.",
+      "Study the hardware.",
       "Analyze firmware behavior.",
       "Investigate communication systems.",
       "Experiment with wireless protocols.",
@@ -21,11 +21,11 @@ const capabilities = [
     ],
   },
   {
-    title: "Real Hardware",
+    title: "On the Board",
     lines: ["ESP32-S3. LoRa. BLE.", "Display. Storage. Audio.", "A complete embedded platform."],
   },
   {
-    title: "Real Interaction",
+    title: "On-Device",
     lines: [
       "Security challenges. LoRa communication.",
       "Radio Chat. Morse mode. Peer discovery.",

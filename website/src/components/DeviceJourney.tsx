@@ -10,7 +10,34 @@ import { displayBoxPercent } from "@/lib/badgeDisplay";
 
 const box = displayBoxPercent();
 
-type Callout = { label: string; x: string; y: string };
+type Callout = { label: string; x: string; y: string; side?: "left" | "right" };
+
+// The dot marks the exact coordinate on the photo; the label floats off
+// to whichever side has room, so a long label (e.g. "Joystick Input")
+// never drags the dot itself off the edge of the board. `side` overrides
+// the automatic left/right choice for a specific callout.
+function CalloutDot({ label, x, y, side, visible = true }: Callout & { visible?: boolean }) {
+  const xNum = parseFloat(x);
+  const labelOnRight = side ? side === "right" : xNum < 60;
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: visible ? 1 : 0 }}
+      transition={{ duration: 0.4, delay: 0.15 }}
+      className="absolute"
+      style={{ left: x, top: y }}
+    >
+      <span className="absolute -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-accent bg-accent/60" />
+      <span
+        className={`mono absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-sm border border-white/10 bg-black/80 px-2 py-1 text-[9px] tracking-wide text-white/80 backdrop-blur-sm ${
+          labelOnRight ? "left-2.5" : "right-2.5"
+        }`}
+      >
+        {label}
+      </span>
+    </motion.div>
+  );
+}
 
 type Step = {
   kicker: string;
@@ -23,7 +50,7 @@ type Step = {
 const steps: Step[] = [
   {
     kicker: "HARDWARE",
-    title: "Real hardware.",
+    title: "What's on the board.",
     lines: ["ESP32-S3.", "WiFi. BLE. LoRa.", "TFT display."],
     screenshot: null,
     screenshotAlt: "",
@@ -52,7 +79,7 @@ const steps: Step[] = [
   {
     kicker: "RADIO CHAT",
     title: "LoRa. Badge to badge.",
-    lines: ["Messaging. Morse mode.", "Peer-to-peer, over real radio."],
+    lines: ["Messaging. Morse mode.", "Peer-to-peer, over LoRa."],
     screenshot: "/images/radio-chat.webp",
     screenshotAlt: "Vanguard Radio Chat screen",
   },
@@ -63,16 +90,16 @@ const steps: Step[] = [
 // physically there), so the hardware step shows the back, not the front.
 const backCallouts: Callout[] = [
   { label: "LoRa Radio", x: "50%", y: "29%" },
-  { label: "ESP32-S3 · WiFi · BLE", x: "77%", y: "62%" },
+  { label: "ESP32-S3 · WiFi · BLE", x: "77%", y: "62%", side: "right" },
   { label: "Li-ion Battery", x: "50%", y: "58%" },
-  { label: "RST / BOOT", x: "77%", y: "72%" },
+  { label: "RST / BOOT", x: "77%", y: "72%", side: "right" },
   { label: "USB-C", x: "50%", y: "90%" },
 ];
 
 const frontCallouts: Callout[] = [
   { label: "TFT Display", x: "50%", y: "62%" },
   { label: "Joystick Input", x: "16%", y: "74%" },
-  { label: "Button Cluster", x: "85%", y: "72%" },
+  { label: "Button Cluster", x: "85%", y: "72%", side: "right" },
   { label: "LED Zones", x: "50%", y: "76%" },
 ];
 
@@ -195,21 +222,7 @@ export default function DeviceJourney() {
                     priority
                   />
                   {stepIndex === 0 &&
-                    backCallouts.map((c) => (
-                      <motion.div
-                        key={c.label}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4, delay: 0.15 }}
-                        className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2"
-                        style={{ left: c.x, top: c.y }}
-                      >
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full border border-accent bg-accent/60" />
-                        <span className="mono whitespace-nowrap rounded-sm border border-white/10 bg-black/80 px-2 py-1 text-[9px] tracking-wide text-white/80 backdrop-blur-sm">
-                          {c.label}
-                        </span>
-                      </motion.div>
-                    ))}
+                    backCallouts.map((c) => <CalloutDot key={c.label} {...c} />)}
                 </div>
 
                 {/* front face — the display */}
@@ -243,19 +256,7 @@ export default function DeviceJourney() {
                   )}
                   {!onDisplay &&
                     frontCallouts.map((c) => (
-                      <motion.div
-                        key={c.label}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: flipRotation >= 90 ? 1 : 0 }}
-                        transition={{ duration: 0.4, delay: 0.15 }}
-                        className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2"
-                        style={{ left: c.x, top: c.y }}
-                      >
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full border border-accent bg-accent/60" />
-                        <span className="mono whitespace-nowrap rounded-sm border border-white/10 bg-black/80 px-2 py-1 text-[9px] tracking-wide text-white/80 backdrop-blur-sm">
-                          {c.label}
-                        </span>
-                      </motion.div>
+                      <CalloutDot key={c.label} {...c} visible={flipRotation >= 90} />
                     ))}
                 </div>
               </div>

@@ -74,8 +74,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.4 }}
           className="mt-8 max-w-xl text-balance text-base leading-relaxed text-white/60 sm:text-lg"
         >
-          Real hardware. Real firmware. ESP32-S3, LoRa, and BLE, built for
-          hardware security.
+          Hardware security starts with hardware.
         </motion.p>
 
         <motion.div

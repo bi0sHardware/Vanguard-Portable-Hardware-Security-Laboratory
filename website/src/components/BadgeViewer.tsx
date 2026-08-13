@@ -53,6 +53,21 @@ export default function BadgeViewer({
   const flipScale = useTransform(edgeFactor, [0, 1], [0.88, 1]);
   const flipOpacity = useTransform(edgeFactor, [0, 0.35, 1], [0.4, 1, 1]);
 
+  // Belt-and-suspenders on top of backface-visibility: some browsers
+  // ghost the hidden face under nested/animated transforms, so each
+  // face's opacity is also hard-gated to whichever side is actually
+  // facing the camera — only one image is ever visibly present.
+  const frontOpacity = useTransform([flipOpacity, springY], (latest) => {
+    const [op, v] = latest as [number, number];
+    const mod = ((v % 360) + 360) % 360;
+    return mod < 90 || mod > 270 ? op : 0;
+  });
+  const backOpacity = useTransform([flipOpacity, springY], (latest) => {
+    const [op, v] = latest as [number, number];
+    const mod = ((v % 360) + 360) % 360;
+    return mod >= 90 && mod <= 270 ? op : 0;
+  });
+
   const handlePointerMove = (e: React.PointerEvent) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -134,7 +149,7 @@ export default function BadgeViewer({
             style={{
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
-              opacity: flipOpacity,
+              opacity: frontOpacity,
             }}
             className="absolute inset-0 flex items-center justify-center"
           >
@@ -154,7 +169,7 @@ export default function BadgeViewer({
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
-              opacity: flipOpacity,
+              opacity: backOpacity,
             }}
             className="absolute inset-0 flex items-center justify-center"
           >
