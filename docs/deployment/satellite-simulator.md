@@ -21,8 +21,35 @@ docker run --rm -v "$PWD/firmware":/project -w /project --device=/dev/ttyACM0 \
 Flash this build to one spare badge (or any board carrying the same LoRa
 module) and power it centrally in the play area for the duration of the
 event. It broadcasts telemetry, authenticates uplinks, and streams the
-Level 4 payload on a continuous loop; its own serial console narrates
-activity, which is useful for organizers monitoring the event.
+Level 4 payload on a continuous loop.
+
+The badge's own TFT shows a live status screen — current mode, loop
+position, uplink authentications, and payload streaming state, plus a
+short event log — so a laptop tethered to the serial console isn't
+required to see that it's alive. Serial output is still available in
+parallel for anyone who wants it.
+
+## Operating modes
+
+`JoyLeft` / `JoyRight` on the satellite badge itself cycle through:
+
+- **AUTO** (default) — broadcasts the Packet 1–10 telemetry loop and
+  listens for uplinks at the same time, exactly as Levels 2–4 require.
+  This is the only mode that's correct for an actual event; it's also
+  what the badge boots into, so an operator who never touches the
+  joystick gets the right behavior automatically.
+- **TX ONLY** — broadcasts the loop (and payload, if already
+  authenticated) but never listens. Useful for confirming badges can
+  receive the satellite's signal in isolation, separate from uplink
+  reception.
+- **RX ONLY** — listens for uplinks (and still authenticates them) but
+  never transmits. Useful for confirming an uplink is reaching the
+  satellite without the telemetry loop or payload stream contending for
+  airtime.
+
+Switching modes only changes which of transmit/receive this build calls
+each tick — the underlying protocol logic, timing, and authentication are
+identical in every mode.
 
 ## Radio considerations
 
